@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 interface RunwayBottleSvgProps {
   productIndex: number;
@@ -150,7 +150,8 @@ const BOTTLE_PALETTES = [
 export const RunwayBottleSvg: React.FC<RunwayBottleSvgProps> = ({ productIndex }) => {
   const idx = ((productIndex % BOTTLE_PALETTES.length) + BOTTLE_PALETTES.length) % BOTTLE_PALETTES.length;
   const p = BOTTLE_PALETTES[idx];
-  const uid = `runway-bottle-${idx}`;
+  const instanceId = useId().replace(/:/g, "");
+  const uid = `runway-bottle-${idx}-${instanceId}`;
 
   return (
     <svg viewBox="0 0 220 520" aria-hidden="true">

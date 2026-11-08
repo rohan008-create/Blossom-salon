@@ -4,19 +4,20 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { whatsappEnquiry } from '@/lib/salon-contact';
+import { ServiceLookReveal } from '@/components/service-look-reveal';
 import {
   CutoutCard, CutoutCardAction, CutoutCardContent, CutoutCardFooter,
-  CutoutCardImage, CutoutCardInsetLabel, CutoutCardMedia, CutoutCardOverlay,
+  CutoutCardInsetLabel, CutoutCardMedia,
   CutoutCardPin, CutoutCorner, cutoutCardSurfaceClassName, useCutoutContentStaggerVariants,
 } from '@/components/ui/cutout-card';
 
 const services = [
-  { id: 'haircut', title: 'Haircut & Styling', tag: 'FIND YOUR LOOK', audience: 'Hair for the family', description: 'Haircuts and styling for a fresh look. Ask our team about options for you or your family.', alt: 'Illustration of a hairdryer, scissors and salon comb', tone: 'rose' },
-  { id: 'hair-color', title: 'Hair Colour & Care', tag: 'A NEW SHADE', audience: 'Hair colour & care', description: 'Explore hair colour and care services with our salon team.', alt: 'Illustration of hair colour tools and care products', tone: 'peach' },
-  { id: 'facial', title: 'Skin & Facial Care', tag: 'TIME FOR YOU', audience: 'Skin care', description: 'Ask about skin and facial care suited to your preferences.', alt: 'Illustration of facial care products', tone: 'sage' },
-  { id: 'makeup', title: 'Makeup', tag: 'FOR THE OCCASION', audience: 'Makeup', description: 'Get in touch about makeup for an event or a look you have in mind.', alt: 'Illustration of makeup tools', tone: 'lilac' },
-  { id: 'nails', title: 'Nail Art & Beauty', tag: 'THE DETAILS', audience: 'Nail art', description: 'Explore nail art and beauty services at our Rajkot salon.', alt: 'Illustration of nail care products', tone: 'pink' },
-  { id: 'grooming', title: 'Grooming', tag: 'LOOK YOUR WAY', audience: 'Grooming', description: 'Contact us about grooming services and current availability.', alt: 'Illustration of grooming tools', tone: 'sand' },
+  { id: 'haircut', title: 'Haircut & Styling', tag: 'FIND YOUR LOOK', audience: 'Hair for the family', description: 'Soft layers, fresh shapes and a finish that moves with you. Find your signature cut.', alt: 'Back view of a woman before and after a layered salon haircut', tone: 'rose' },
+  { id: 'hair-color', title: 'Hair Colour & Care', tag: 'A NEW SHADE', audience: 'Hair colour & care', description: 'From rich brunette to sunlit caramel. Discover a shade that feels completely yours.', alt: 'Woman with natural brunette hair and warm copper balayage', tone: 'peach' },
+  { id: 'facial', title: 'Skin & Facial Care', tag: 'TIME FOR YOU', audience: 'Skin care', description: 'Slow down, settle in and give your skin a little care. Your moment to refresh.', alt: 'Natural beauty portrait before and after a hydrated facial look', tone: 'sage' },
+  { id: 'makeup', title: 'Makeup', tag: 'FOR THE OCCASION', audience: 'Makeup', description: 'Soft glam or a little drama. Beautifully blended makeup for your memorable moments.', alt: 'Same woman with a natural face and elegant rose evening makeup', tone: 'lilac' },
+  { id: 'nails', title: 'Nail Art & Beauty', tag: 'THE DETAILS', audience: 'Nail art', description: 'Blush tones, delicate details and a polished finish. Little works of art, at your fingertips.', alt: 'Natural nails and a blush manicure with fine French tips', tone: 'pink' },
+  { id: 'grooming', title: 'Grooming', tag: 'LOOK YOUR WAY', audience: 'Grooming', description: 'Clean lines. A sharper shape. Thoughtful hair and beard grooming, finished your way.', alt: 'Man before and after a taper haircut and a neatly shaped beard', tone: 'sand' },
 ];
 
 export function SalonServices() {
@@ -57,16 +58,15 @@ export function SalonServices() {
       <header className="salon-services-heading">
         <div><p className="salon-services-eyebrow"><span /> THE BLOSSOM EXPERIENCE</p>
           <h2 id="salon-services-title">Our <em>Services.</em></h2></div>
-        <p>Hair, skin, nails, makeup and grooming.<br />Contact us for details and availability.</p>
+        <p>Every little change. A whole new feeling.<br />Find your next look, beautifully.<span className="services-interaction-note">A little Blossom magic. Hover or tap for your makeover.</span></p>
       </header>
       <div ref={sliderRef} className="salon-services-grid" role="region" aria-label="Our services cards" tabIndex={0} onKeyDown={event => {
         if (!window.matchMedia('(max-width: 600px)').matches) return;
         if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') { event.preventDefault(); goToSlide(Math.max(0, Math.min(services.length - 1, activeSlide + (event.key === 'ArrowRight' ? 1 : -1)))); }
       }}>
-        {services.map((service, index) => <div className="service-slide" key={service.id}><CutoutCard className={`${cutoutCardSurfaceClassName} service-tone-${service.tone}`}>
+        {services.map((service, index) => <div className="service-slide" key={service.id}><CutoutCard tilt={false} className={`${cutoutCardSurfaceClassName} service-tone-${service.tone}`}>
           <CutoutCardMedia>
-            <CutoutCardOverlay />
-            <CutoutCardImage src={`/images/services/${service.id}.png`} alt={service.alt} width={1024} height={1024} sizes="(max-width: 600px) 90vw, (max-width: 1000px) 45vw, 400px" />
+            <ServiceLookReveal id={service.id} title={service.title} alt={service.alt} />
             <CutoutCardInsetLabel><span>{service.tag}</span><CutoutCorner size={25} className="service-label-corner-right" /><CutoutCorner size={25} className="service-label-corner-top" /></CutoutCardInsetLabel>
             <CutoutCardPin><span>0{index + 1}</span><CutoutCorner className="service-pin-corner-left" /><CutoutCorner className="service-pin-corner-bottom" /></CutoutCardPin>
           </CutoutCardMedia>

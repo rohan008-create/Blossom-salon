@@ -4,12 +4,11 @@
  */
 
 import { NotchNavbar } from "@/components/ui/notch-navbar"
-import { BarberCapeReveal } from "@/components/barber-cape-reveal"
-import { SalonHero } from "@/components/salon-hero"
+import { BridalHero } from "@/components/bridal-hero"
 import { SalonServices } from "@/components/salon-services"
 import { SalonAbout } from "@/components/salon-about"
 import { SalonGallery } from "@/components/salon-gallery"
-import { SalonServicesLookbook } from "@/components/salon-services-lookbook"
+import { SalonRituals } from "@/components/salon-rituals"
 import { SalonReviews } from "@/components/salon-reviews"
 import { SalonVisit } from "@/components/salon-visit"
 import { SalonFaq } from "@/components/salon-faq"
@@ -39,14 +38,13 @@ export default function App() {
   return (
     <ThemeProvider defaultTheme="dark">
       <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
-        <BarberCapeReveal />
         <InitialHashScroll />
         <NotchNavbar />
         <main>
-          <SalonHero />
+          <BridalHero />
           <SalonServices />
           <SalonGallery />
-          <SalonServicesLookbook />
+          <SalonRituals />
           <SalonAbout />
           <SalonReviews />
           <SalonVisit />

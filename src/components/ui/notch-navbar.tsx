@@ -3,9 +3,6 @@ import React, { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import {
   ArrowUpRight,
-  Home,
-  Sparkles,
-  MapPin,
   Menu,
   X,
   Sun,
@@ -20,18 +17,15 @@ import { whatsappEnquiry } from "@/lib/salon-contact"
 
 const NavLink = ({
   href,
-  icon: Icon,
   label,
 }: {
   href: string
-  icon: React.ComponentType<{ className?: string }>
   label: string
 }) => (
   <Link
     href={href}
     className="group flex items-center gap-1.5 text-sm font-medium text-zinc-200 hover:text-[#e60073] dark:text-zinc-200 dark:hover:text-[#ff3b9a] transition-colors whitespace-nowrap"
   >
-    <Icon className="w-4 h-4 text-[#e60073] dark:text-[#ff3b9a] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
     <span>{label}</span>
   </Link>
 )
@@ -83,13 +77,15 @@ export function NotchNavbar({
 
   const items = {
     left: [
-      { label: "Home", href: "#home", icon: Home },
-      { label: "Our Services", href: "#our-services", icon: Sparkles },
-      { label: "Gallery", href: "#gallery", icon: Sparkles },
-      { label: "Products", href: "#services", icon: Sparkles },
-      { label: "About", href: "#about", icon: Sparkles },
+      { label: "Home", href: "#home" },
+      { label: "Our Services", href: "#our-services" },
+      { label: "Gallery", href: "#gallery" },
     ],
-    right: [{ label: "Visit Us", href: "#visit", icon: MapPin }],
+    right: [
+      { label: "Products", href: "#services" },
+      { label: "About", href: "#about" },
+      { label: "Visit Us", href: "#visit" },
+    ],
   }
 
   return (
@@ -127,7 +123,7 @@ export function NotchNavbar({
         </div>
 
         {/* Responsive Notch Container - 3 Slices */}
-        <div className="flex h-[52px] xl:h-[68px] relative z-10 shrink-0 -ml-px">
+        <div className="blossom-nav-shell flex h-[52px] xl:h-[68px] relative z-10 shrink-0 -ml-px">
           {/* Left Slice (Corner) */}
           <div className="w-[50px] h-full relative shrink-0">
             <div
@@ -201,10 +197,10 @@ export function NotchNavbar({
             </div>
 
             {/* Content Layer */}
-            <div className="relative w-full h-full flex items-center justify-between px-4 md:px-8 pt-0.5">
+            <div className="blossom-nav-content relative w-full h-full px-4 md:px-8 pt-0.5">
               {/* Desktop Left Nav */}
               <nav
-                className="hidden xl:flex h-10 items-center gap-7 shrink-0"
+                className="blossom-nav-left hidden xl:flex h-10 items-center gap-7 min-w-0"
                 aria-label="Left navigation"
               >
                 {items.left.map((item) => (
@@ -232,7 +228,7 @@ export function NotchNavbar({
               </div>
 
               {/* Official BLOSSOM Logo (Centerpiece) */}
-              <div className="flex h-10 items-center justify-center shrink-0 mx-3 md:mx-6">
+              <div className="blossom-nav-brand flex h-10 items-center justify-center shrink-0">
                 {props.logo || (
                   <Link
                     href="#home"
@@ -242,7 +238,7 @@ export function NotchNavbar({
                   >
                     <LogoIcon
                       variant="light"
-                      className="h-[18px] sm:h-5 md:h-[22px] w-auto block drop-shadow-[0_2px_12px_rgba(240,18,122,0.2)]"
+                      className="h-[22px] sm:h-6 md:h-[28px] w-auto block drop-shadow-[0_2px_12px_rgba(240,18,122,0.2)]"
                     />
                   </Link>
                 )}
@@ -250,7 +246,7 @@ export function NotchNavbar({
 
               {/* Desktop Right Nav */}
               <nav
-                className="hidden xl:flex h-10 gap-6 items-center shrink-0"
+                className="blossom-nav-right hidden xl:flex h-10 items-center min-w-0"
                 aria-label="Right navigation"
               >
                 {items.right.map((item) => (

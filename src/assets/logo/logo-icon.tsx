@@ -101,7 +101,7 @@ export default function LogoIcon({
       <g
         fill={textFill}
         stroke={textFill}
-        strokeWidth="6.5"
+        strokeWidth="9"
         strokeLinejoin="round"
         paintOrder="stroke fill"
       >

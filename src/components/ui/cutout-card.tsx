@@ -6,16 +6,16 @@ import { cn } from '@/lib/utils';
 
 export const cutoutCardSurfaceClassName = 'cutout-card-surface';
 
-export function CutoutCard({ className, children }: React.PropsWithChildren<{ className?: string }>) {
+export function CutoutCard({ className, children, tilt = true }: React.PropsWithChildren<{ className?: string; tilt?: boolean }>) {
   const reduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useSpring(x, { stiffness: 180, damping: 25 });
   const rotateY = useSpring(y, { stiffness: 180, damping: 25 });
   return <motion.article className={cn('cutout-card', className)}
-    style={{ rotateX, rotateY, transformPerspective: 1100 }}
+    style={tilt ? { rotateX, rotateY, transformPerspective: 1100 } : undefined}
     onPointerMove={event => {
-      if (reduceMotion || event.pointerType !== 'mouse') return;
+      if (!tilt || reduceMotion || event.pointerType !== 'mouse') return;
       const box = event.currentTarget.getBoundingClientRect();
       x.set(-((event.clientY - box.top) / box.height - .5) * 8);
       y.set(((event.clientX - box.left) / box.width - .5) * 8);
