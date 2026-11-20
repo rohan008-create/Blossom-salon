@@ -6,3 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
+.andromity/
+
+# Local browser QA artifacts and bundled tooling
+output/browser-qa/

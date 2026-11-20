@@ -1,29 +1,62 @@
-import DragLoopCarousel from '@/components/mfa/DragLoopCarousel';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight, Images, X } from 'lucide-react';
+import GlassFolder, { type FolderFile } from '@/components/ui/glass-folder-cards';
+import { useTheme } from '@/lib/next-themes';
+import './salon-gallery.css';
 
-const galleryImages = [
-  { src: '/images/hero-women.jpg', width: 300, lift: 18 },
-  { src: '/images/services/haircut.png', width: 262, lift: 90 },
-  { src: '/images/hero-men.jpg', width: 310, lift: 0 },
-  { src: '/images/services/hair-color.png', width: 270, lift: 108 },
-  { src: '/images/hero-kids.jpg', width: 294, lift: 30 },
-  { src: '/images/services/makeup.png', width: 270, lift: 120 },
-  { src: '/images/services/nails.png', width: 278, lift: 44 },
-  { src: '/images/services/facial.png', width: 276, lift: 118 },
-  { src: '/images/services/grooming.png', width: 280, lift: 36 },
-];
+const collections = [
+  { label: 'The Hair Edit', caption: 'Cuts, colour & a little confidence.', images: ['haircut.png', 'hair-color.png', 'grooming.png'], names: ['Fresh perspective', 'Colour stories', 'The finishing touch'] },
+  { label: 'Beauty Rituals', caption: 'Small details. Beautiful possibilities.', images: ['facial.png', 'nails.png', 'makeup.png'], names: ['A moment to glow', 'At your fingertips', 'Soft glamour'] },
+  { label: 'The Blossom Mood', caption: 'A little inspiration for everyone.', images: ['../hero-kids.jpg', '../hero-men.jpg', '../hero-women.jpg'], names: ['Little moments', 'Effortlessly you', 'In full bloom'] },
+].map(collection => ({ ...collection, files: collection.images.map((image, index) => ({ name: collection.names[index], meta: 'Style inspiration', image: image.startsWith('../') ? `/images/${image.slice(3)}` : `/images/services/looks/${image}` })) }));
 
 export function SalonGallery() {
-  return <section id="gallery" aria-labelledby="gallery-title" className="overflow-hidden bg-[#f8f2f5] py-20 text-[#241b23] transition-colors duration-300 sm:py-24 dark:bg-[#080709] dark:text-white">
-    <div className="mx-auto flex max-w-[1360px] flex-col gap-6 px-6 sm:px-10 lg:flex-row lg:items-end lg:justify-between lg:px-12">
-      <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#b21c61] dark:text-[#ff6caf]">Illustrative gallery</p>
-        <h2 id="gallery-title" className="mt-3 font-serif text-5xl leading-none sm:text-6xl">Our <em className="font-normal text-[#b21c61] dark:text-[#ff6caf]">Work.</em></h2>
-      </div>
-      <p className="max-w-md text-sm leading-6 text-zinc-600 dark:text-zinc-400">These are placeholder visuals for the demo, not photos of Blossom clients or completed work. Real salon photos can replace them once provided.</p>
+  const { resolvedTheme } = useTheme();
+  const [active, setActive] = useState<FolderFile | null>(null);
+  const [openFolder, setOpenFolder] = useState<number | null>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const allPhotos = collections.flatMap(collection => collection.files);
+  const activeIndex = allPhotos.findIndex(photo => photo.image === active?.image);
+  const previewOpen = active !== null;
+  const movePhoto = (direction: number) => setActive(allPhotos[(activeIndex + direction + allPhotos.length) % allPhotos.length]);
+  const desk = useRef<HTMLDivElement>(null);
+  const [folderWidth, setFolderWidth] = useState(240);
+  useEffect(() => {
+    const el = desk.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      const column = el.querySelector<HTMLElement>('.bloom-gallery-collection');
+      if (column) setFolderWidth(Math.min(280, Math.max(160, column.clientWidth - 56)));
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!previewOpen) return;
+    dialog.current?.showModal();
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const modal = dialog.current; return () => { modal?.close(); document.body.style.overflow = previous; };
+  }, [previewOpen]);
+  return <section id="gallery" aria-labelledby="gallery-title" className="bloom-gallery">
+    <div className="bloom-gallery-heading">
+      <div><p className="bloom-gallery-eyebrow">● &nbsp; The inspiration archive</p><h2 id="gallery-title">Good looks.<br /><em>Worth keeping.</em></h2></div>
+      <div className="bloom-gallery-intro"><p>A little colour. A fresh perspective. Explore the possibilities inside our curated style folders.</p><span>03 COLLECTIONS &nbsp; ↗ &nbsp; ENDLESS INSPIRATION</span></div>
     </div>
-    <div className="mt-10 h-[370px] touch-pan-y sm:h-[520px]" aria-label="Drag to explore illustrative gallery images">
-      <DragLoopCarousel images={galleryImages} speed={180} gap={18} minScale={0.5} radius={14} background="transparent" />
+    <div className="bloom-gallery-desk" ref={desk}>
+      <div className="bloom-gallery-collections">{collections.map((collection, index) => <div className="bloom-gallery-collection" key={collection.label}>
+        <div className="bloom-gallery-index"><span>0{index + 1}</span><span>STYLE NOTES ↗</span></div>
+        <GlassFolder label={collection.label} meta="3 looks · Click to explore" image={collection.files[2].image} files={collection.files} art="none" action="none" tone={resolvedTheme} width={folderWidth} appearDelay={index * 140} open={openFolder === index} onOpenChange={open => setOpenFolder(current => open ? index : current === index ? null : current)} onFileSelect={setActive} />
+        <p className="bloom-gallery-caption">{collection.caption}</p>
+        <div className="bloom-gallery-thumbnails" aria-label={`${collection.label} photos`}>
+          {collection.files.map(file => <button type="button" key={file.image} onClick={() => setActive(file)} aria-label={`View ${file.name}`}><img src={file.image} alt={file.name} loading="lazy" /><span>{file.name}</span></button>)}
+        </div>
+        <button type="button" className="bloom-gallery-view" onClick={() => setActive(collection.files[0])}><Images size={15} aria-hidden="true" /> View photos <ArrowRight size={15} aria-hidden="true" /></button>
+      </div>)}</div>
+      <div className="bloom-gallery-footnote"><span>HOVER TO PEEK · CLICK TO OPEN · SELECT A LOOK</span><p>Illustrative images for inspiration. Actual salon work coming soon.</p></div>
     </div>
-    <p className="mx-auto mt-3 max-w-[1360px] px-6 text-[11px] uppercase tracking-[0.18em] text-zinc-600 sm:px-10 lg:px-12 dark:text-zinc-400">Drag or swipe to explore</p>
+    <dialog ref={dialog} className="bloom-gallery-lightbox" aria-labelledby="gallery-photo-title" onKeyDown={event => { event.stopPropagation(); if (event.key === 'ArrowRight') { event.preventDefault(); movePhoto(1); } if (event.key === 'ArrowLeft') { event.preventDefault(); movePhoto(-1); } }} onClose={() => setActive(null)} onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
+      {active && <div className="bloom-gallery-photo"><button type="button" onClick={() => dialog.current?.close()} aria-label="Close photo"><X size={22} /></button><img src={active.image} alt={`${active.name} — illustrative salon inspiration`} /><div><h3 id="gallery-photo-title">{active.name}</h3><p>Style inspiration · Illustrative image</p><nav className="bloom-gallery-photo-nav" aria-label="Browse gallery photos"><button type="button" onClick={() => movePhoto(-1)} aria-label="Previous photo"><ArrowLeft size={20} /></button><span aria-live="polite">{activeIndex + 1} / {allPhotos.length}</span><button type="button" onClick={() => movePhoto(1)} aria-label="Next photo"><ArrowRight size={20} /></button></nav></div></div>}
+    </dialog>
   </section>;
 }

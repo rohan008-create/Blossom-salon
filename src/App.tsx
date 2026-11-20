@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { NotchNavbar } from "@/components/ui/notch-navbar"
+import { SalonNavbar } from "@/components/ui/salon-navbar"
 import { BridalHero } from "@/components/bridal-hero"
+import { SalonCombos } from "@/components/salon-combos"
 import { SalonServices } from "@/components/salon-services"
+import { SalonArtists } from "@/components/salon-artists"
 import { SalonAbout } from "@/components/salon-about"
 import { SalonGallery } from "@/components/salon-gallery"
 import { SalonRituals } from "@/components/salon-rituals"
-import { SalonReviews } from "@/components/salon-reviews"
-import { SalonVisit } from "@/components/salon-visit"
+import { SalonBooking } from "@/components/salon-booking"
 import { SalonFaq } from "@/components/salon-faq"
 import { SalonFinalCta } from "@/components/salon-final-cta"
 import { SalonFooter } from "@/components/salon-footer"
@@ -39,15 +40,16 @@ export default function App() {
     <ThemeProvider defaultTheme="dark">
       <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
         <InitialHashScroll />
-        <NotchNavbar />
+        <SalonNavbar />
         <main>
           <BridalHero />
           <SalonServices />
+          <SalonCombos />
           <SalonGallery />
           <SalonRituals />
           <SalonAbout />
-          <SalonReviews />
-          <SalonVisit />
+          <SalonArtists />
+          <SalonBooking />
           <SalonFaq />
           <SalonFinalCta />
         </main>

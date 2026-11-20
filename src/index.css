@@ -51,8 +51,8 @@ body {
 }
 
 html { scroll-behavior: smooth; }
-main > section, footer[id] { scroll-margin-top: 84px; }
-@media (max-width: 1199px) { main > section, footer[id] { scroll-margin-top: 60px; } }
+main > section, footer[id] { scroll-margin-top: 96px; }
+@media (max-width: 1199px) { main > section, footer[id] { scroll-margin-top: 84px; } }
 
 /* Blossom Salon — Runway Depth Lookbook Our Products Section */
 .vell-lookbook {
@@ -944,21 +944,4 @@ main > section, footer[id] { scroll-margin-top: 84px; }
   .salon-services .cutout-card:hover { translate:none; }
 }
 
-/* Equal side columns keep the wordmark at the viewport centre. */
-.blossom-nav-content { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; column-gap:28px; }
-.blossom-nav-shell { width:min(1380px, 100%); }
-.blossom-nav-brand { grid-column:2; grid-row:1; }
-.blossom-nav-content > div:last-child { justify-self:end; }
-.blossom-nav-left { justify-self:start; }
-.blossom-nav-right { justify-self:end; gap:20px; }
-.blossom-nav-right > div { gap:10px; padding-left:12px; }
-.blossom-nav-right > div > a { padding-inline:12px; font-size:10px; letter-spacing:.035em; }
-@media (max-width:1279px) {
-  .blossom-nav-shell { width:min(440px, 100%); }
-  .blossom-nav-content { column-gap:16px; }
-}
-@media (min-width:1280px) and (max-width:1399px) {
-  .blossom-nav-content { padding-inline:12px; column-gap:24px; }
-  .blossom-nav-right { gap:14px; }
-  .blossom-nav-right > div { gap:6px; padding-left:10px; }
-}
+/* The Atelier navbar keeps its own styles in components/ui/salon-navbar.css. */

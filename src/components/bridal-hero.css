@@ -1,20 +1,59 @@
-.bridal-hero{--gutter:clamp(18px,2.4vw,36px);position:relative;height:100vh;height:100svh;min-height:650px;overflow:hidden;isolation:isolate;touch-action:pan-y;cursor:none;color:#141114;background:radial-gradient(60% 55% at 50% 45%,#fff6f9 0%,transparent 70%),linear-gradient(180deg,#fdeef3,#fbe3eb);font-family:'Inter Tight',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-.bridal-intro{position:absolute;top:140px;left:var(--gutter);z-index:4;max-width:290px;cursor:auto}.bridal-intro>span{font-size:10px;letter-spacing:.17em;color:#7a6870}.bridal-intro h1{margin:18px 0 14px;font-size:clamp(28px,3.2vw,48px);font-weight:500;line-height:1.04;letter-spacing:-.045em}.bridal-intro h1 em{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;color:#a93e64}.bridal-intro p{font-size:13px;color:#7a6870}.bridal-intro a{display:inline-flex;align-items:center;gap:24px;margin-top:20px;padding:13px 18px;background:#ff7fab;border-radius:10px;color:#fff;text-decoration:none;font-size:13px;font-weight:500}.bridal-intro a:hover{background:#e96496}
-.bridal-marquees{position:absolute;inset:50% 0 auto;transform:translateY(-20%);z-index:1;pointer-events:none;user-select:none;display:flex;flex-direction:column;gap:clamp(4px,1.2vw,18px)}.bridal-row{display:flex;width:max-content;white-space:nowrap;will-change:transform}.bridal-row span{font-size:clamp(54px,9.6vw,168px);line-height:1;letter-spacing:-.035em;text-transform:uppercase;padding-right:.3em}.bridal-row.ghost{color:#d6c3ca;font-weight:400;animation:bridal-left 38s linear infinite}.bridal-row.solid{color:#141114;font-weight:500;animation:bridal-right 32s linear infinite}@keyframes bridal-left{to{transform:translateX(-50%)}}@keyframes bridal-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.bridal-figure{position:absolute;left:55%;bottom:0;z-index:2;height:min(88svh,115vw);aspect-ratio:3/4;transform:translateX(-50%);pointer-events:none}.bridal-figure img,.bridal-figure canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;display:block}.bridal-figure canvas{opacity:0;transition:opacity .8s}.bridal-figure canvas.ready{opacity:1}.bridal-figure:has(canvas.ready) img{visibility:hidden}.bridal-cursor{position:fixed;left:0;top:0;z-index:30;pointer-events:none;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#ff7fab;opacity:0;transition:opacity .25s}.bridal-cursor.on{opacity:1}.bridal-hint{position:absolute;left:var(--gutter);bottom:var(--gutter);z-index:3;font-size:12px;color:#7a6870;display:flex;align-items:center;gap:8px}.bridal-hint i{width:8px;height:8px;border-radius:50%;background:#ff7fab;flex-shrink:0}.bridal-toggle{position:absolute;right:var(--gutter);bottom:var(--gutter);z-index:4;font:inherit;font-size:12px;color:#141114;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);padding:10px 15px;border:0;border-radius:999px;cursor:pointer}.bridal-toggle span{margin-left:15px}.bridal-toggle:focus-visible,.bridal-intro a:focus-visible{outline:2px solid #a93e64;outline-offset:4px}
-@media(max-width:720px){.bridal-hero{min-height:720px;cursor:auto}.bridal-intro{top:104px;max-width:none;left:20px}.bridal-intro h1{font-size:32px;margin:12px 0 8px}.bridal-intro p{margin:0}.bridal-intro a{margin-top:12px;padding:10px 14px}.bridal-marquees{top:55%;transform:translateY(-30%)}.bridal-figure{left:50%;height:auto;width:min(108vw,64svh)}.bridal-hint{left:50%;transform:translateX(-50%);bottom:15px;background:rgba(255,255,255,.88);padding:8px 12px;border-radius:999px;color:#141114;white-space:nowrap;font-size:11px;margin:0}.bridal-toggle{bottom:58px;right:16px}}
-@media(hover:none){.bridal-cursor{display:none}}@media(prefers-reduced-motion:reduce){.bridal-row.ghost,.bridal-row.solid{animation:none}.bridal-figure canvas{transition:none}}
-
-/* Bridal editorial introduction */
-.bridal-intro{top:clamp(120px,17svh,185px);left:clamp(24px,4vw,64px);max-width:390px;color:#39252c}
-.bridal-eyebrow{display:flex;align-items:center;gap:11px;font-size:9px;font-weight:600;letter-spacing:.23em;color:#875266}.bridal-eyebrow>span{height:1px;width:30px;background:#a26279}
-.bridal-intro h1{margin:23px 0 19px;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(48px,4.8vw,73px);font-weight:500;line-height:.93;letter-spacing:-.045em}.bridal-intro h1 em{display:inline-block;font-size:1.11em;line-height:1.05;font-weight:400;color:#a13b61}
-.bridal-intro p{font-size:12px;line-height:1.85;letter-spacing:.005em;color:#806a73;margin:0;max-width:280px}
-.bridal-intro a{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;background:#6b2945;border:1px solid #6b2945;border-radius:999px;color:#fff7f1;padding:7px 7px 7px 20px;margin-top:25px;font-size:11px;letter-spacing:.015em;min-height:48px;transition:background .2s,transform .2s}
-.bridal-intro a>span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff5ed;color:#6b2945;font-size:17px;transition:transform .2s}.bridal-intro a:hover{background:#873956;transform:translateY(-2px)}.bridal-intro a:hover>span{transform:rotate(45deg)}
-.bridal-signature{display:flex;align-items:center;gap:15px;margin-top:23px;padding-top:15px;border-top:1px solid #d8bac6;width:fit-content;font-size:7px;font-weight:600;letter-spacing:.15em;color:#8d6979}.bridal-signature>span{padding-left:15px;border-left:1px solid #d8bac6;font-size:7px;letter-spacing:.15em}
-@media(min-width:721px) and (max-width:1050px){.bridal-intro{left:24px;max-width:280px}.bridal-intro h1{font-size:52px}.bridal-figure{left:63%;height:min(82svh,100vw)}}
-@media(max-width:720px){.bridal-hero{min-height:940px}.bridal-intro{top:94px;left:26px;max-width:calc(100% - 52px)}.bridal-eyebrow{font-size:8px;letter-spacing:.2em;gap:9px}.bridal-eyebrow>span{width:23px}.bridal-intro h1{font-size:49px;line-height:.91;margin:17px 0 12px}.bridal-intro h1 em{font-size:1.08em;line-height:1.02}.bridal-intro p{font-size:11px;line-height:1.7}.bridal-intro a{margin-top:17px;min-height:44px;padding:6px 6px 6px 17px;font-size:10px;gap:23px}.bridal-intro a>span{width:29px;height:29px;font-size:16px}.bridal-signature{margin-top:16px;padding-top:11px;font-size:6px;gap:10px}.bridal-signature>span{font-size:6px;padding-left:10px}.bridal-figure{width:min(106vw,60svh)}.bridal-marquees{top:64%}}
-@media(max-width:360px){.bridal-intro{left:22px;max-width:calc(100% - 44px)}.bridal-intro h1{font-size:44px}}
-@media(prefers-reduced-motion:reduce){.bridal-intro a,.bridal-intro a>span{transition:none}}
-@media(max-width:720px){.bridal-figure{width:min(100vw,390px,56svh)}}
+.bridal-hero {
+  --gutter:clamp(24px,4vw,72px);
+  position:relative; isolation:isolate; overflow:hidden;
+  height:100svh; min-height:760px;
+  color:#39252c; background:radial-gradient(ellipse at 50% 65%,#f3dce5 0%,#fcf2f5 40%,#fffafc 76%);
+  font-family:'Inter Tight',system-ui,sans-serif; touch-action:pan-y;
+}
+.bridal-halo {position:absolute;z-index:0;left:50%;bottom:-20%;transform:translateX(-50%);width:min(54vw,760px);height:105%;border:1px solid #d5a5b74d;border-radius:50% 50% 0 0;background:linear-gradient(180deg,#f0d0df44,#fff8fb00);pointer-events:none}
+.bridal-halo::after {content:"";position:absolute;inset:20px;border:1px solid #d5a5b730;border-radius:inherit}
+.bridal-intro {position:absolute;top:23%;left:var(--gutter);z-index:4;width:29%;max-width:390px}
+.bridal-eyebrow {display:flex;align-items:center;gap:12px;font-size:11px;font-weight:600;letter-spacing:.2em;color:#875266}
+.bridal-eyebrow > span {height:1px;width:32px;background:#a26279}
+.bridal-intro h1 {margin:26px 0 24px;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(52px,5.2vw,86px);font-weight:500;line-height:.95;letter-spacing:-.045em}
+.bridal-intro h1 em {display:inline-block;color:#a13b61;font-weight:400;font-size:1.08em}
+.bridal-intro p {font-size:14px;line-height:1.8;color:#806a73;margin:0;max-width:300px}
+.bridal-intro a {display:inline-flex;align-items:center;justify-content:space-between;gap:24px;background:#6b2945;border:1px solid #6b2945;border-radius:999px;color:#fff7f1;padding:8px 8px 8px 22px;margin-top:26px;font-size:13px;min-height:50px;text-decoration:none;box-shadow:0 12px 28px -16px #6b294599;transition:background .2s,transform .2s}
+.bridal-intro a > span {display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fff5ed;color:#6b2945;font-size:18px}
+.bridal-intro a:hover {background:#873956;transform:translateY(-2px)}
+.bridal-signature {display:flex;align-items:center;gap:12px;margin-top:25px;padding-top:16px;border-top:1px solid #d8bac6;width:fit-content;font-size:9px;font-weight:500;letter-spacing:.12em;color:#8d6979}
+.bridal-signature > span {padding-left:12px;border-left:1px solid #d8bac6}
+.bridal-figure {position:absolute;left:50%;bottom:0;z-index:2;height:min(85svh,100vw);aspect-ratio:2/3;transform:translateX(-50%);pointer-events:none}
+.bridal-figure img,.bridal-figure canvas {position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
+.bridal-figure canvas {opacity:0;transition:opacity .8s}.bridal-figure canvas.ready{opacity:1}.bridal-figure:has(canvas.ready) img{visibility:hidden}
+.bridal-note {position:absolute;right:var(--gutter);top:38%;z-index:3;width:21%;max-width:250px}
+.bridal-note > span {font-size:10px;letter-spacing:.2em;color:#98657a}
+.bridal-note p {font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(30px,3vw,45px);line-height:1.1;letter-spacing:-.03em;margin:22px 0}
+.bridal-note p em {font-weight:400;color:#a13b61}
+.bridal-note > div {font-size:13px;line-height:1.9;color:#806a73}
+.bridal-note a {display:inline-block;margin-top:25px;padding-bottom:7px;border-bottom:1px solid #b47a90;font-size:12px;color:#6b2945;text-decoration:none}
+.bridal-marquees {position:absolute;inset:auto 0 10%;z-index:1;pointer-events:none;user-select:none;opacity:.3}
+.bridal-row {display:flex;width:max-content;white-space:nowrap}.bridal-row span{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(70px,10vw,160px);font-style:italic;line-height:1.1;letter-spacing:-.04em;padding-right:.5em}
+.bridal-row.ghost {color:#b8879b;animation:bridal-left 50s linear infinite}.bridal-row.solid{display:none}
+@keyframes bridal-left{to{transform:translateX(-50%)}}
+.bridal-hint {position:absolute;left:var(--gutter);bottom:26px;z-index:3;font-size:12px;color:#806a73;display:flex;align-items:center;gap:9px;margin:0}
+.bridal-hint i {width:7px;height:7px;border-radius:50%;background:#c66d91}
+.bridal-toggle {position:absolute;right:var(--gutter);bottom:22px;z-index:4;font:inherit;font-size:13px;color:#6b2945;background:#fffcf0cc;backdrop-filter:blur(8px);padding:14px 20px;border:1px solid #d8bac6;border-radius:999px;cursor:pointer}
+.bridal-toggle span {margin-left:15px}
+.bridal-toggle:focus-visible,.bridal-intro a:focus-visible,.bridal-note a:focus-visible {outline:2px solid #a93e64;outline-offset:4px}
+.bridal-cursor {display:none}
+@media(min-width:721px) and (max-width:1100px) {
+  .bridal-hero {min-height:820px}.bridal-intro{top:18%;width:36%;left:28px}.bridal-intro h1{font-size:58px}.bridal-note{top:24%;right:28px;width:23%}.bridal-note p{font-size:32px}.bridal-figure{height:67svh;max-height:650px}.bridal-halo{height:78%;width:65vw}
+}
+@media(max-width:720px) {
+  .bridal-hero {height:auto;min-height:100svh;padding:102px 0 112px;background:radial-gradient(ellipse at 50% 65%,#f3dce5 0%,#fcf2f5 40%,#fffafc 80%)}
+  .bridal-intro {position:relative;top:auto;left:auto;width:auto;max-width:none;margin:0 24px;text-align:center}
+  .bridal-eyebrow {justify-content:center;font-size:10px}.bridal-eyebrow>span{width:22px}
+  .bridal-intro h1 {font-size:clamp(47px,12vw,66px);line-height:.95;margin:20px 0 16px}
+  .bridal-intro p {font-size:13px;line-height:1.7;margin:0 auto}
+  .bridal-intro a {margin-top:20px;font-size:12px;min-height:48px}
+  .bridal-signature {margin:20px auto 0;padding-top:12px;font-size:8px}
+  .bridal-figure {position:relative;left:auto;bottom:auto;transform:none;width:min(100%,410px);height:auto;aspect-ratio:2/3;margin:26px auto 0}
+  .bridal-halo {bottom:4%;height:57%;width:94%;max-width:480px}
+  .bridal-halo::after {inset:12px}
+  .bridal-note {display:none}
+  .bridal-marquees {bottom:22%;opacity:.4}.bridal-row span{font-size:83px}
+  .bridal-toggle {bottom:54px;right:50%;transform:translateX(50%);white-space:nowrap;background:#fff9fc}
+  .bridal-hint {bottom:23px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;gap:6px}
+}
+@media(prefers-reduced-motion:reduce){.bridal-row.ghost{animation:none}.bridal-figure canvas,.bridal-intro a{transition:none}}

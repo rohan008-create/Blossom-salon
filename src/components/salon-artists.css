@@ -1,0 +1,36 @@
+﻿.salon-artists{--artists-bg:#f7f2ec;--artists-ink:#34242d;--artists-muted:#88757f;position:relative;overflow:hidden;background:var(--artists-bg);color:var(--artists-ink);padding:88px max(24px,calc((100vw - 1480px)/2)) 34px}
+.dark .salon-artists{--artists-bg:#171217;--artists-ink:#faeff4;--artists-muted:#b6a1ad}
+.artists-intro{padding:0 30px;display:flex;justify-content:space-between;align-items:end;gap:36px;max-width:1420px;margin:0 auto 50px}
+.artists-eyebrow{display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.22em;font-weight:700;margin:0 0 22px;color:var(--artists-muted)}
+.artists-eyebrow>span{width:6px;height:6px;border-radius:50%;background:#d2538e}
+.artists-intro h2{font-family:'Inter Tight',var(--font-sans);font-size:clamp(38px,4.1vw,64px);font-weight:500;line-height:1.08;letter-spacing:-.045em;margin:0}
+.artists-intro h2 em{font-family:'DM Serif Display',Georgia,serif;font-size:1.08em;font-weight:400;display:inline-block;margin-top:5px;color:#ad517a}.dark .artists-intro h2 em{color:#e8a0c0}
+.artists-intro-aside>p{font-size:12px;line-height:1.9;color:var(--artists-muted);margin:0 0 20px}
+.artists-interaction{display:inline-flex;gap:9px;align-items:center;font-size:10px;letter-spacing:.025em}.artists-interaction>span{font-size:21px;color:#bd5483}
+.artists-track{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));max-width:1480px;margin:auto;isolation:isolate;outline-offset:5px}
+.artist-profile{position:relative;min-width:0;text-align:center;padding-bottom:20px;border-top:1px solid color-mix(in srgb,var(--artists-ink) 18%,transparent)}
+.artist-rail-pin{height:30px;position:relative;display:flex;align-items:center;justify-content:center;gap:8px;font-size:9px;letter-spacing:.12em;color:var(--artists-muted)}
+.artist-rail-pin>span{position:absolute;width:9px;height:9px;top:-5px;border-radius:50%;background:var(--artist-tone);box-shadow:0 0 0 5px var(--artists-bg)}
+.artist-lanyard-stage{height:420px;position:relative;margin-top:-10px}
+.artist-profile:nth-child(even) .artist-lanyard-stage{margin-top:8px;margin-bottom:-18px}
+.artist-info{position:relative;padding:10px 8px 0;z-index:2}
+.artist-speciality{text-transform:uppercase;font-size:9px;letter-spacing:.15em;margin:0 0 10px;color:var(--artists-muted)}
+.artist-info h3{font-family:'Inter Tight',var(--font-sans);font-size:25px;letter-spacing:-.035em;font-weight:500;line-height:1.1;margin:0}
+.artist-note{font-size:11px;color:var(--artists-muted);margin:10px 0 15px}
+.artist-flip{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:10px;color:var(--artists-ink);border:1px solid color-mix(in srgb,var(--artists-ink) 15%,transparent);border-radius:99px;padding:8px 13px;cursor:pointer;background:transparent;transition:background .2s,border-color .2s}
+.artist-flip:hover{background:color-mix(in srgb,var(--artist-tone) 15%,transparent);border-color:var(--artist-tone)}
+.artist-flip:focus-visible,.artists-track:focus-visible,.artists-mobile-controls button:focus-visible{outline:2px solid #d2538e;outline-offset:4px}
+.artist-static-badge{position:relative;width:100%;height:100%;display:grid;place-items:center}
+.artist-static-badge:before{content:'';position:absolute;top:0;height:25%;width:15px;background:repeating-linear-gradient(0deg,#321827 0 16px,#9e627e 17px 18px)}
+.artist-static-badge img{width:68%;height:auto;max-height:70%;object-fit:contain;position:relative;top:20px;border-radius:10px;filter:drop-shadow(0 16px 18px #0003)}
+.artists-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid color-mix(in srgb,var(--artists-ink) 12%,transparent);max-width:1420px;margin:36px auto 0;padding:24px 0 0}
+.artists-footer p{color:var(--artists-muted);font-size:10px;line-height:1.7;margin:0}.artists-footer a{display:inline-flex;align-items:center;gap:9px;font-size:12px;white-space:nowrap;color:var(--artists-ink);text-decoration:none}.artists-footer a:hover{color:#d2538e}
+.artists-mobile-controls{display:none}
+@media(min-width:1600px){.artist-lanyard-stage{height:470px}}
+@media(max-width:1100px){.artists-intro{padding:0 10px}.artists-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;scroll-padding-inline:20px;padding:6px 20px 15px;gap:8px;margin:0 -24px}.artists-track::-webkit-scrollbar{display:none}.artist-profile{flex:0 0 31%;scroll-snap-align:center}.artist-lanyard-stage{height:410px}.artists-mobile-controls{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:18px}.artists-mobile-controls>button{width:38px;height:38px;border:1px solid color-mix(in srgb,var(--artists-ink) 18%,transparent);border-radius:50%;display:grid;place-items:center;color:var(--artists-ink);background:transparent;cursor:pointer}.artists-mobile-controls>button:disabled{opacity:.3;cursor:default}.artists-mobile-controls>div{display:flex}.artists-mobile-controls>div>button{width:26px;height:38px;display:grid;place-items:center;cursor:pointer}.artists-mobile-controls span{width:5px;height:5px;background:var(--artists-muted);opacity:.4;border-radius:8px;transition:width .25s,opacity .25s}.artists-mobile-controls [aria-current] span{width:16px;background:#d2538e;opacity:1}}
+@media(max-width:700px){.salon-artists{padding-top:60px}.artists-intro{display:block;margin-bottom:38px;padding:0}.artists-intro h2{font-size:clamp(37px,9vw,54px)}.artists-eyebrow{font-size:8px;letter-spacing:.18em;margin-bottom:20px}.artists-intro-aside{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:15px}.artists-intro-aside>p{margin:0;font-size:11px}.artists-interaction{font-size:9px}.artist-profile{flex-basis:80%;max-width:350px}.artist-lanyard-stage{height:420px}.artist-profile:nth-child(even) .artist-lanyard-stage{margin-top:-10px;margin-bottom:0}.artist-info h3{font-size:28px}.artists-footer{display:block;margin-top:28px}.artists-footer a{margin-top:16px}.artists-track{scroll-padding-inline:calc(10vw + 4px)}}
+@media(prefers-reduced-motion:reduce){.artist-flip,.artists-mobile-controls span{transition:none}}
+@media(max-width:700px){
+  .artists-track{padding-inline:calc((100vw - min(80vw,350px))/2);scroll-padding-inline:calc((100vw - min(80vw,350px))/2)}
+  .artist-profile{flex-basis:min(80vw,350px);max-width:none}
+}

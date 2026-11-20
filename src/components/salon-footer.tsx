@@ -1,58 +1,79 @@
-import { ArrowUp, ArrowUpRight, Copy, MapPin, Phone } from 'lucide-react';
-import { useState } from 'react';
-import LogoIcon from '@/assets/logo/logo-icon';
-import { SALON_ADDRESS, SALON_MAPS, SALON_PHONE, SALON_TEL, whatsappEnquiry } from '@/lib/salon-contact';
+﻿import { ArrowUp, ArrowUpRight, Check, Copy, Phone } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import LogoIcon from '@/assets/logo/logo-icon'
+import { SALON_ADDRESS, SALON_MAPS, SALON_PHONE, SALON_TEL, whatsappEnquiry } from '@/lib/salon-contact'
+import './salon-footer.css'
+import { FooterLetterSwap } from './footer-letter-swap'
+
+const links = [
+  ['Services', '#our-services'], ['Our artists', '#artists'],
+  ['Combos', '#combos'], ['About Blossom', '#about'],
+  ['Gallery', '#gallery'], ['Plan a visit', '#booking'],
+  ['Products', '#services'], ['Good to know', '#faq'],
+]
 
 export function SalonFooter() {
-  const [copied, setCopied] = useState(false);
+  const footerRef = useRef<HTMLElement>(null)
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle')
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(() => () => { if (copyTimer.current) clearTimeout(copyTimer.current) }, [])
+  useEffect(() => {
+    const footer = footerRef.current
+    if (!footer) return
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let observer: IntersectionObserver | undefined
+    const configure = () => {
+      observer?.disconnect()
+      const parts = footer.querySelectorAll('.bf-topline,.bf-brand,.bf-navigation,.bf-contact,.bf-letter-signature,.bf-bottom')
+      if (media.matches) {
+        delete footer.dataset.motion
+        delete footer.dataset.active
+        parts.forEach(part => part.classList.remove('bf-reveal', 'bf-visible'))
+        return
+      }
+      footer.dataset.motion = 'true'
+      parts.forEach(part => part.classList.add('bf-reveal'))
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.target === footer) footer.dataset.active = String(entry.isIntersecting)
+          else if (entry.isIntersecting) entry.target.classList.add('bf-visible')
+        })
+      }, { threshold: .08 })
+      observer.observe(footer)
+      parts.forEach(part => observer?.observe(part))
+    }
+    configure()
+    media.addEventListener('change', configure)
+    return () => { observer?.disconnect(); media.removeEventListener('change', configure) }
+  }, [])
   const copyAddress = async () => {
     try {
-      await navigator.clipboard.writeText(SALON_ADDRESS);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch { /* Clipboard may be unavailable outside secure contexts. */ }
-  };
-
-  return <footer id="footer" className="relative overflow-hidden bg-white text-zinc-900 dark:bg-[#09060d] dark:text-zinc-100">
-    <div className="mx-auto max-w-[1360px] px-6 pt-16 pb-10 sm:px-10 lg:px-12 lg:pt-20">
-      <div className="grid gap-12 border-b border-zinc-200 pb-14 lg:grid-cols-[1.2fr_1fr] dark:border-zinc-800">
-        <div>
-          <LogoIcon variant="obsidian" className="block h-7 w-auto dark:hidden" />
-          <LogoIcon variant="light" className="hidden h-7 w-auto dark:block" />
-          <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e60073]">BLOSSOM FAMILY SALON · RAJKOT</p>
-          <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">A little care, <em className="font-normal text-[#e60073]">close to home.</em></h2>
-          <p className="mt-5 max-w-lg text-sm leading-7 text-zinc-600 dark:text-zinc-400">Visit us at Kotecha Circle for hair, beauty, nail art, makeup and grooming. Contact the salon to ask about services and availability.</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a href={whatsappEnquiry()} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#e60073] px-5 text-sm font-semibold text-white hover:bg-[#c90065]">Enquire on WhatsApp <ArrowUpRight size={16} /></a>
-            <a href={SALON_TEL} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-zinc-300 px-5 text-sm font-semibold dark:border-zinc-700">Call the salon <Phone size={15} /></a>
-          </div>
-        </div>
-        <div className="lg:pl-10">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e60073]">Find us</p>
-          <h3 className="mt-3 font-serif text-3xl font-semibold">Kotecha Circle, Rajkot</h3>
-          <p className="mt-5 flex items-start gap-3 text-sm leading-7 text-zinc-600 dark:text-zinc-400"><MapPin className="mt-1 shrink-0 text-[#e60073]" size={18} />{SALON_ADDRESS}</p>
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-            <a href={SALON_MAPS} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-[#e60073] hover:underline">Get directions <ArrowUpRight size={15} /></a>
-            <button type="button" onClick={copyAddress} className="inline-flex items-center gap-1 hover:text-[#e60073]"><Copy size={15} />{copied ? 'Copied' : 'Copy address'}</button>
-          </div>
-          <a href={SALON_TEL} className="mt-7 inline-flex items-center gap-2 text-base font-semibold hover:text-[#e60073]"><Phone size={17} className="text-[#e60073]" />{SALON_PHONE}</a>
-          <nav aria-label="Footer navigation" className="mt-9 flex flex-wrap gap-x-6 gap-y-3 border-t border-zinc-200 pt-6 text-sm dark:border-zinc-800">
-            <a href="#home" className="hover:text-[#e60073]">Home</a>
-            <a href="#our-services" className="hover:text-[#e60073]">Services</a>
-            <a href="#gallery" className="hover:text-[#e60073]">Gallery</a>
-            <a href="#services" className="hover:text-[#e60073]">Products</a>
-            <a href="#about" className="hover:text-[#e60073]">About</a>
-            <a href="#reviews" className="hover:text-[#e60073]">Stories</a>
-            <a href="#visit" className="hover:text-[#e60073]">Visit</a>
-            <a href="#faq" className="hover:text-[#e60073]">FAQ</a>
-          </nav>
-        </div>
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(SALON_ADDRESS)
+      else {
+        const input = document.createElement('textarea')
+        input.value = SALON_ADDRESS; input.readOnly = true; input.style.position = 'fixed'; input.style.opacity = '0'
+        document.body.appendChild(input); input.select()
+        let copied = false
+        try { copied = document.execCommand('copy') } finally { input.remove() }
+        if (!copied) throw new Error('Clipboard unavailable')
+      }
+      setCopyState('copied')
+    } catch { setCopyState('failed') }
+    if (copyTimer.current) clearTimeout(copyTimer.current)
+    copyTimer.current = setTimeout(() => setCopyState('idle'), 3000)
+  }
+  const year = new Intl.DateTimeFormat('en', { year: 'numeric', timeZone: 'Asia/Kolkata' }).format(new Date())
+  return <footer ref={footerRef} id="footer" className="blossom-footer" aria-label="Blossom salon information">
+    <svg className="bf-center-notch" viewBox="0 0 220 38" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H220C185 0 187 36 153 36H67C33 36 35 0 0 0Z" /></svg>
+    <div className="bf-inner">
+      <div className="bf-topline"><p><span /> A LITTLE BLOSSOM, EVERY DAY.</p><a href="#booking">Your next look starts here <ArrowUpRight size={14} /></a></div>
+      <div className="bf-content">
+        <div className="bf-brand"><a href="#home" aria-label="Blossom Family Salon home" className="bf-brand-logo"><LogoIcon variant="auto" /></a><h2>Come as you are.<br /><em>Leave a little brighter.</em></h2><p>Your neighbourhood space for hair, beauty and a little time for yourself.</p><a href="#booking" className="bf-book">Let’s plan your visit <span><ArrowUpRight size={17} /></span></a><div className="bf-location-tag"><span>RAJKOT, INDIA</span><span>FAMILY SALON</span></div></div>
+        <nav className="bf-navigation" aria-label="Footer navigation"><p className="bf-label">TAKE A LOOK AROUND</p><div>{links.map(([label, href]) => <a key={href} href={href}>{label}<ArrowUpRight size={12} /></a>)}</div><a className="bf-whatsapp" href={whatsappEnquiry()} target="_blank" rel="noopener noreferrer">A question? Let’s chat <ArrowUpRight size={14} /></a></nav>
+        <div className="bf-contact"><p className="bf-label">A LITTLE CLOSER TO YOU</p><div className="bf-address-card"><div className="bf-address-heading"><span>VISIT BLOSSOM</span><span>01 / RAJKOT</span></div><h3>Find your way<br />to <em>Blossom.</em></h3><address>{SALON_ADDRESS}</address><div className="bf-address-actions"><a href={SALON_MAPS} target="_blank" rel="noopener noreferrer">Get directions <ArrowUpRight size={13} /></a><button type="button" onClick={copyAddress} aria-label="Copy salon address">{copyState === 'copied' ? <Check size={13} /> : <Copy size={13} />}<span>{copyState === 'copied' ? 'Copied' : 'Copy'}</span></button></div><span className="bf-copy-status" role="status">{copyState === 'copied' ? 'Address copied.' : copyState === 'failed' ? 'Select the address above to copy it.' : ''}</span></div><a href={SALON_TEL} className="bf-phone"><span className="bf-phone-icon"><Phone size={15} /></span><span><small>CALL THE SALON</small>{SALON_PHONE}</span><ArrowUpRight size={15} /></a></div>
       </div>
-      <div className="my-6 text-center font-serif text-[clamp(2.5rem,9vw,8rem)] font-semibold leading-none tracking-[-0.04em] text-[#1d072c] dark:text-zinc-100">BLOSSOM</div>
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-200 pt-6 text-[11px] uppercase tracking-wider text-zinc-500 dark:border-zinc-800">
-        <span>© {new Date().getFullYear()} Blossom Family Salon · Rajkot</span>
-        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="inline-flex items-center gap-2 hover:text-[#e60073]">Back to top <ArrowUp size={14} /></button>
-      </div>
+      <FooterLetterSwap />
+      <div className="bf-bottom"><p>© {year} Blossom Family Salon.</p><span>Made for your kind of beautiful.</span><button type="button" onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })}>Back to top <span><ArrowUp size={14} /></span></button></div>
     </div>
-  </footer>;
+  </footer>
 }
